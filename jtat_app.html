@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>JA Tool — Admin / User</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Styles (CAT theme) -->
+  <link rel="stylesheet" href="data/css/ja-tool.css" />
+
+  <!-- XLSX: чтение Excel (Admin→Process) и экспорт Skill list в Excel с главной -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <!-- Header - only this part changes - title on right like the CAT screenshot -->
+  <header class="site-header">
+    <div class="wrap">
+      <nav class="nav">
+        <a href="#" id="goAdmin">Admin</a>
+        <a href="#" id="goUser">User</a>
+        <a href="#" id="btnOpenParticipantsTop">Participants</a>
+      </nav>
+      <div class="site-logo">Job Task Analysis Tool</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ===== Admin Panel ===== -->
+    <section id="adminPanel" class="panel">
+      <h1>Admin — Build / Manage Database</h1>
+
+      <h3>Source Excel</h3>
+      <p class="muted">Expected sheet names: <b>System</b>, <b>Product</b>, <b>JobRole</b>.</p>
+      <div class="inline">
+        <input id="excelInput" type="file" accept=".xlsx,.xls" />
+        <button id="btnProcess" class="primary">Process Excel</button>
+      </div>
+      <div class="pad-v-8 mono" id="adminLog"></div>
+
+      <h3>Save / Load JSON DB</h3>
+      <div class="inline">
+        <button id="btnSaveDB">Save DB (JSON)</button>
+        <input id="dbInput" type="file" accept=".json" />
+        <button id="btnLoadDB">Load DB</button>
+      </div>
+
+      <h3>DB Summary</h3>
+      <pre id="dbSummary" class="mono"></pre>
+
+      <h3>Participants (summary)</h3>
+      <div class="inline">
+        <button id="btnOpenParticipantsAdmin">Open Participants</button>
+        <span id="adm_total" class="badge">0</span>
+        <span id="adm_selected" class="badge">0</span>
+      </div>
+    </section>
+
+    <!-- ===== User Panel ===== -->
+    <section id="userPanel" class="panel hidden">
+      <h1>User — Explore by cascades</h1>
+
+      <!-- Верхняя строка статусов и быстрых действий -->
+      <div class="toolbar">
+        <div class="inline">
+          <button id="btnOpenParticipants">Participants</button>
+          <strong id="top_total">Total: 0</strong>
+          <span id="top_selected">Selected: 0</span>
+        </div>
+        <div class="inline" style="margin-left:auto">
+          <button id="btnTime">Time zone & deadlines</button>
+        </div>
+      </div>
+
+      <!-- Переключатель каскада -->
+      <div class="panel">
+        <h3>Cascade</h3>
+        <div class="inline">
+          <label><input type="radio" name="cascade" value="JobRole" checked> Job role</label>
+          <label><input type="radio" name="cascade" value="System"> System</label>
+          <label><input type="radio" name="cascade" value="Product"> Product family</label>
+        </div>
+      </div>
+
+      <!-- Фильтры -->
+      <div class="panel filters">
+        <div id="filtersBox"></div>
+        <div class="inline">
+          <button id="btnApply" class="primary">Apply filters</button>
+          <button id="btnReset">Reset filters</button>
+        </div>
+      </div>
+
+      <!-- Поиск -->
+      <div class="toolbar">
+        <label>
+          <span>Search:</span>
+          <input id="searchInput" type="text" placeholder="Type to filter..." />
+        </label>
+        <button id="btnClearSearch">Clear</button>
+      </div>
+
+      <!-- Кнопки действий -->
+      <div class="toolbar">
+        <button id="btnCSV" class="primary">Download Learning plan CSV</button>
+        <button id="btnSkillList">Skill list</button>
+        <button id="btnSkillCSV">Export Skill list to Excel</button>
+        <span class="muted">—</span>
+        <span id="attrSummary" class="muted">—</span>
+        <span style="margin-left:auto"><strong id="resultCount">0</strong></span>
+      </div>
+
+      <!-- Результирующая таблица -->
+      <div class="table-wrap">
+        <table id="resultTable"><thead></thead><tbody></tbody></table>
+      </div>
+    </section>
+
+    <!-- ===== Диагностика (перенесено вниз) ===== -->
+    <section id="diagPanel" class="panel"></section>
+
+  </main>
+
+  <!-- ===== Time modal ===== -->
+  <div id="timeBackdrop" class="modal-backdrop"></div>
+  <div id="timeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="timeTitle">
+    <h3 id="timeTitle">Time zone & deadlines</h3>
+
+    <!-- Шапка колонок: 4 колонки как у строк атрибутов -->
+    <div class="row row--hdr">
+      <div><strong>Time zone</strong></div>
+      <div><strong>Attribute</strong></div>
+      <div><strong>Active from</strong></div>
+      <div><strong>Active until</strong></div>
+    </div>
+
+    <div id="timeAttrRows" class="attrs"></div>
+
+    <div class="actions">
+      <button id="btnTimeCancel">Cancel</button>
+      <button id="btnTimeSave" class="primary">Save</button>
+    </div>
+  </div>
+
+  <!-- Основной скрипт приложения -->
+  <script src="data/js/app.js"></script>
+</body>
+</html>

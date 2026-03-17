@@ -1,0 +1,193 @@
+/* ========================================================================
+   JOB ANALYSIS TOOL — CAT Theme (Black / Yellow) — Single Stylesheet (Noto Sans)
+   v6 — 2026‑03‑16 — ONLY HEADER STYLING CHANGED to match screenshot
+   ======================================================================== */
+
+:root {
+  --cat-black: #000000;
+  --cat-yellow: #ffcd00;
+  --bg: #ffffff;
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --panel: #f8f9fa;
+  --panel-2: #f1f5f9;
+  --border: #000000;
+  --accent: #000000;
+
+  --table-head-bg: #000000;
+  --table-head-fg: #ffffff;
+  --table-row-hover: #fff7d1; /* soft yellow */
+  --table-row-alt: #eaf4ff;   /* light blue */
+
+  --btn-radius: 8px;
+  --btn-height: 36px;
+
+  --btn-bg: #ffffff;
+  --btn-fg: #000000;
+  --btn-border: #000000;
+  --btn-bg-hover: #fff7d1;
+  --btn-border-hover: #000000;
+
+  --btn-primary-bg: var(--cat-yellow);
+  --btn-primary-fg: #000000;
+  --btn-primary-border: #000000;
+
+  --btn-danger-bg: #d92d20;
+  --btn-danger-fg: #ffffff;
+  --btn-danger-border: #7f1d1d;
+
+  --container-max: 1200px;
+
+  --focus-outline: 2px solid var(--cat-yellow);
+}
+
+/* Base */
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font:14px/1.45 "Noto Sans Condensed","Noto Sans",Arial,"Helvetica Neue",Helvetica,sans-serif;
+  color:var(--ink); background:var(--bg)
+}
+h1,h2,h3,h4,b,strong{font-family:"Noto Sans Condensed","Noto Sans",Arial,"Helvetica Neue",Helvetica,sans-serif;font-weight:700}
+h1{font-size:28px;margin:18px 0 10px;letter-spacing:.01em}
+h2{font-size:20px;margin:18px 0 10px}
+h3{font-size:18px;margin:16px 0 8px}
+h4{font-size:16px;margin:12px 0 6px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Layout */
+.container{max-width:1200px;margin:0 auto;padding:16px}
+.wrap{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.header{position:sticky;top:0;z-index:2;background:#fff;border-bottom:1px solid var(--border)}
+
+/* ===== HEADER STYLING UPDATED to match screenshot ===== */
+/* Title on the right like the CAT screenshot */
+.site-header{position:sticky;top:0;z-index:1000;background:var(--cat-black);color:#fff;border-bottom:4px solid var(--cat-yellow)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:10px 16px}
+.site-logo{color:#ffffff;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+.nav{display:flex;gap:18px;flex-wrap:wrap}
+.nav a{color:#fff;font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.06em}
+.nav a:hover{color:var(--cat-yellow);text-decoration:none}
+/* ===== END HEADER UPDATES ===== */
+
+/* Panels / toolbar */
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px;margin:12px 0}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
+
+/* Table */
+.table-wrap{overflow:auto;border-radius:5px;background:#fff;border:1px solid var(--border)}
+.table-wrap table{width:100%;border-collapse:separate;border-spacing:0;table-layout:auto}
+.table-wrap thead th{
+  position:sticky;top:0;z-index:2;background:var(--table-head-bg);color:var(--table-head-fg);
+  border-bottom:3px solid var(--cat-yellow);font-weight:800;text-transform:uppercase;letter-spacing:.06em
+}
+table th,table td{padding:10px;vertical-align:middle;line-height:1.25;border-right:1px solid var(--border)}
+table th:last-child,table td:last-child{border-right:none}
+
+/* ✅ Исправление «скачка вправо»: убрали псевдоэлемент, используем inset box-shadow */
+tbody tr:nth-child(odd){background:#fff}
+tbody tr:nth-child(even){background:var(--table-row-alt)}
+tbody tr{transition:background-color .15s ease}
+tbody tr:hover{background:var(--table-row-hover);box-shadow:inset 4px 0 0 var(--cat-yellow)}
+tbody tr.row--selected{box-shadow:inset 4px 0 0 var(--cat-yellow)}
+
+/* Filters/forms */
+.filters{display:block;gap:12px;background:var(--panel-2);border:1px solid var(--border);border-radius:5px;padding:14px}
+label{display:block;font-size:12px;color:#111827;margin:6px 0 4px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+select,input[type="text"],input[type="date"]{padding:10px 12px;border:1px solid var(--border);border-radius:5px;background:#fff;font:inherit}
+select[multiple]{min-height:90px}
+.facet-title{font-weight:700;margin-bottom:6px}
+.facet-box{margin-bottom:10px}
+.level-tip{margin-top:6px;color:#b54708;font-size:12px}
+
+/* Facet options (checkbox list) */
+.facet-options{display:flex;flex-wrap:wrap;gap:8px 8px}
+.facet-option{display:inline-flex;align-items:center;gap:6px;margin-right:8px;margin-bottom:6px}
+.facet-option .facet-cb{inline-size:16px;block-size:16px}
+
+/* Buttons */
+button,.primary,.pill{
+  height:var(--btn-height);min-height:var(--btn-height);padding:0 14px;border-radius:8px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
+  font-family:"Noto Sans Condensed","Noto Sans",Arial,"Helvetica Neue",Helvetica,sans-serif
+}
+button{background:var(--btn-bg);color:var(--btn-fg);border:1px solid var(--btn-border)}
+button:hover{background:var(--btn-bg-hover);border-color:var(--btn-border-hover)}
+button:disabled{opacity:.6;cursor:not-allowed}
+button.primary,.primary{background:var(--btn-primary-bg);color:var(--btn-primary-fg);border:1px solid var(--btn-primary-border)}
+button.primary:hover,.primary:hover{filter:brightness(.96)}
+button.danger{background:var(--btn-danger-bg);color:var(--btn-danger-fg);border-color:var(--btn-danger-border)}
+.pill{display:inline-flex;align-items:center;gap:6px;line-height:1}
+
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:9998}
+.modal{
+  position:fixed;top:8vh;left:50%;transform:translateX(-50%);
+  width:min(860px,96vw);background:#fff;border:2px solid var(--border);
+  border-radius:10px;padding:16px;display:none;z-index:9999
+}
+.modal h3,.modal h4{margin:0 0 10px}
+
+/* ✅ Сетка шапки модалки и строк атрибутов: 4 колонки строго одинаковые */
+.modal .row{display:grid;grid-template-columns:220px 1fr 1fr 1fr;gap:10px;margin:6px 0}
+.modal .row--hdr{margin-top:2px;padding-bottom:6px;border-bottom:1px dashed var(--border)}
+.attrs{border-top:1px dashed var(--border);margin-top:10px;padding-top:10px}
+.attr-row{display:grid;grid-template-columns:220px 1fr 1fr 1fr;gap:8px;align-items:center;margin:4px 0}
+.attr-row select,.attr-row input[type="date"]{width:100%}
+.attr-row > div:nth-child(2){font-weight:600}
+.err-note{color:#d92d20;font-size:12px;margin-top:2px}
+.invalid input[type="date"]{border:2px solid #d92d20}
+
+.modal .actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.modal input:focus{outline:var(--focus-outline)}
+
+/* Diagnostics */
+.diagnostics{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+.diagnostics__grid{display:grid;grid-template-columns:1fr auto;gap:8px}
+.diagnostics__key{color:var(--muted)}
+
+/* Utils */
+.hidden{display:none!important}
+.inline{display:inline-flex;gap:10px;align-items:center;flex-wrap:wrap}
+.muted{color:var(--muted)}
+.pad-v-8{padding-top:8px;padding-bottom:8px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+.badge{font-size:12px;color:var(--muted)}
+
+/* Filter dropdown styling */
+.filter-dropdown {
+  width: 100%;
+  min-height: 120px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: #fff;
+  font-family: "Noto Sans Condensed", sans-serif;
+  font-size: 13px;
+}
+
+.filter-dropdown option {
+  padding: 6px 8px;
+}
+
+.filter-dropdown option:checked {
+  background: var(--cat-yellow) linear-gradient(0deg, var(--cat-yellow) 0%, var(--cat-yellow) 100%);
+  color: #000;
+}
+
+/* For Windows compatibility */
+.filter-dropdown option:checked {
+  background-color: var(--cat-yellow);
+  color: #000;
+}
+
+/* Hide the old checkbox container */
+.facet-options {
+  display: none;
+}
+
+/* Adjust spacing */
+.facet-box {
+  margin-bottom: 15px;
+}

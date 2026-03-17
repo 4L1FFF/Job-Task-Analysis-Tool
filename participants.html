@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Participants List — JA Tool</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/ja-tool.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="site-logo">Job Task Analysis Tool</div>
+      <nav class="nav">
+        <a href="#" id="btnSaveCloseTop">Save & Close</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="header">
+    <div class="wrap">
+      <div class="inline">
+        <strong id="pl_total">Total: 0</strong>
+        <span id="pl_selected">Selected: 0</span>
+        <span id="pl_dups">Duplicates: 0</span>
+      </div>
+      <div class="inline">
+        <button id="btnSaveClose" class="primary">Save & Close</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <!-- Toolbar: кнопки слева, поиск + Show selected only справа -->
+    <div class="toolbar" style="justify-content:space-between; gap:12px; flex-wrap:wrap">
+      <div class="inline" style="gap:8px">
+        <button id="btnImportCSV">Import CSV</button>
+        <button id="btnAdd">Add participant</button>
+        <button id="btnRemoveAll" class="danger">Remove all</button>
+        <input id="fileImportCSV" type="file" accept=".csv" style="display:none" />
+      </div>
+
+      <div class="inline" style="gap:10px">
+        <label class="inline" style="gap:6px; margin:0">
+          <span>Search:</span>
+          <input id="q" type="text" placeholder="Search…">
+        </label>
+        <label class="inline" style="gap:6px; margin:0">
+          <input type="checkbox" id="onlySel">
+          <span>Show selected only</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <!-- чекбокс «выбрать всех» -->
+            <th style="text-align:center; width:56px">
+              <input type="checkbox" id="useAll" title="Select/Deselect all">
+            </th>
+            <th>user_id</th>
+            <th>username</th>
+            <th>first_name</th>
+            <th>last_name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- ===== Add participant modal ===== -->
+  <div id="addBackdrop" class="modal-backdrop"></div>
+  <div id="addModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="addTitle" aria-describedby="addDesc" style="max-width:700px">
+    <h3 id="addTitle">Add participant</h3>
+    <p id="addDesc" class="muted" style="margin-top:-6px">Fill the fields below and press Save to add a new participant.</p>
+
+    <!-- Сетка: 5 полей в 2 строки -->
+    <div class="grid" style="gap:10px">
+      <div class="inline" style="gap:10px">
+        <label class="inline" style="gap:8px; margin:0">
+          <input type="checkbox" id="ap_active" checked>
+          <span>Use (active)</span>
+        </label>
+      </div>
+
+      <div class="grid grid-2">
+        <div>
+          <label for="ap_user_id">user_id</label>
+          <input id="ap_user_id" type="text" placeholder="e.g., 123456">
+        </div>
+        <div>
+          <label for="ap_username">username <span class="muted">(required)</span></label>
+          <input id="ap_username" type="text" placeholder="user.name">
+          <div id="ap_err_username" class="err-note" style="display:none">Username is required.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <div>
+          <label for="ap_first_name">first_name</label>
+          <input id="ap_first_name" type="text" placeholder="First name">
+        </div>
+        <div>
+          <label for="ap_last_name">last_name</label>
+          <input id="ap_last_name" type="text" placeholder="Last name">
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="ap_cancel">Cancel</button>
+      <button id="ap_save" class="primary">Save</button>
+    </div>
+  </div>
+
+  <script src="js/participants.js"></script>
+  <script>
+    document.getElementById('btnSaveCloseTop')?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      document.getElementById('btnSaveClose')?.click();
+    });
+  </script>
+</body>
+</html>
